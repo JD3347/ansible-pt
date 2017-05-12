@@ -1,0 +1,7 @@
+---
+- name: get started
+  hosts: test
+  user: root
+
+  roles: 
+    - common

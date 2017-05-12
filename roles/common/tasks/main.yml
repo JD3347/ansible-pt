@@ -1,0 +1,28 @@
+---
+- name: update
+  apt: update_cache=yes
+
+- name: upgrade ubuntu
+  apt: upgrade=dist
+
+- name: change hostname
+  action: lineinfile 
+      dest=/etc/hostname 
+      regexp=.* line={{inventory_hostname}} 
+      create=yes
+
+- name: create servername
+  file: ~/etc/servername state=present owner=root group=root
+  action: 
+
+## authorized keys /.ssh/authorized_keys
+
+- name: backing up sysctl 
+  command: mv /etc/sysctl.conf /etc/sysctl.conf.dist
+
+- name: pt sysctl file creation
+  get__url:
+    url: https://dl.dropboxusercontent.com/u/11964516/PrivateTunnel%20Kernels/newpgpristinestuff/march8th2017/entropyfix/sysctl.conf
+    dest: /etc/
+
+
